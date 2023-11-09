@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		.duck_set {
+			width: 100px;
+			height: 100px;
+			background-size: 100% 100%;
+			position: absolute;
+		}
+		.wave1 {
+			background-size: 100% 100%;
+			background-image: url(wave1.png);
+			position: absolute;
+			height: 300px;
+			width: 1890px;
+			top: 200px;
+		}
+		.wave2 {
+			background-size: 100% 100%;
+			background-image: url(wave2.png);
+			position: absolute;
+			height: 300px;
+			width: 1890px;
+			top: 400px;
+		}
+		.wave3 {
+			background-size: 100% 100%;
+			background-image: url(wave3.png);
+			position: absolute;
+			height: 300px;
+			width: 1890px;
+			top: 600px;
+		}
+		.shtora1 {
+			background-size: 100% 100%;
+			background-image: url(2s.png);
+			position: absolute;
+			height: 800px;
+			width: 200px;
+			left: 1700px;
+		}
+		.shtora2 {
+			background-size: 100% 100%;
+			background-image: url(1s.png);
+			position: absolute;
+			height: 800px;
+			width: 200px;
+		}
+		.button {
+			position: absolute;
+			height: 50px;
+			width: 150px;
+			background-color: green;
+			color: white;
+			left: 850px;
+		}
+		.text {
+			position: absolute;
+			left: 700px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wave1"></div>
+	<div class="wave2"></div>
+	<div class="wave3"></div>
+	<div class="shtora1"></div>
+	<div class="shtora2"></div>
+	<h1 class="text">Score:<span class="score">0</span></h1>
+	<button class="button">plau</button>
+	<script type="text/javascript">
+		let y = [200, 400, 600]
+		let types = ['good','bad']
+		let point = 0
+		let score = document.querySelector('.score')
+		let button = document.querySelector('button')
+		let createDuck = function () {
+			
+		
+
+		let duck = document.createElement('div')
+		document.body.appendChild(duck)
+		duck.classList.add('duck_set')
+		randomX = Math.round(Math.random()*1500+200)
+		duck.style.left = randomX + 'px'
+		randomY = Math.round(Math.random()*2)
+		duck.style.top = y[randomY] + 'px'
+
+		let type_index = Math.round(Math.random()*1)
+		duck.myType = types[type_index]
+
+		if(duck.myType == 'good') {
+			duck.style.backgroundImage = 'url(1.png)'
+		}
+
+		if(duck.myType == 'bad') {
+			duck.style.backgroundImage = 'url(2.png)'
+		}
+
+		duck.onclick = function () {
+		duck.style.display = 'none'
+		if(duck.myType == 'good') {
+		point = point + 1
+		score.innerHTML = point
+		}
+		if(duck.myType == 'bad') {
+		point = point - 1
+		score.innerHTML = point
+		}
+		}
+		}
+
+		button.onclick = function() {
+		button.style.display = 'none'
+		interval1 =	setInterval(createDuck, 500)
+		setTimeout(endGame, 20000)
+		}
+		let endGame = function() {
+			clearInterval(interval1)
+			if(point>=20) {
+				alert('you win!')
+			}else {
+				alert('you lose!')
+			}
+		}
+		
+	</script>
+	
+</body>
+</html>
